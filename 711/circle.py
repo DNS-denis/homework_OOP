@@ -1,44 +1,48 @@
 ### 1 домашка ###
-from math import pi
+class Triangle:
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
 
-class Circle:
-    def __init__(self, r):      # C = 2pR
-        self.r = r
-
-    def length(self):
-        return 2 * pi * self.r
+    def perimeter(self):
+        return self.a + self.b + self.c
 
     def area(self):
-        return pi * (self.r ** 2)
-circle = Circle(3)
-print(circle.area())  
-print(circle.length())
+        p = self.perimeter() / 2
+        return (p*(p-self.a)*(p-self.b)*(p-self.c))**(1/2)
+
+triangle = Triangle(5, 12, 13)
+print(triangle.area())
+
 
 
 ### 2 домашка ###
 class NotValidFigure(Exception):
     pass
 
-from math import pi
-
-class Circle:
-    def __init__(self, r):      # C = 2pR
-        self.r = r
+class Triangle:
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
         if not self.is_valid():
             raise NotValidFigure
 
-    def length(self):
-        return 2 * pi * self.r
+    def perimeter(self):
+        return self.a + self.b + self.c
 
     def area(self):
-        return pi * (self.r ** 2)
+        p = self.perimeter() / 2
+        return (p*(p-self.a)*(p-self.b)*(p-self.c))**(1/2)
 
     def is_valid(self):
-        sides = [self.r]
-        if all([isinstance(side,(int, float)) for side in sides]):
+        sides = [self.a, self.b, self.c]
+        if all([isinstance(side,(int, float)) for side in sides]): 
             if all ([side >= 0 for side in sides]):
-                return all([side > 0 for side in sides])
+                if all([side > 0 for side in sides]):
+                    sorted_sides = sorted(sides)
+                    return sorted_sides[-1] < sorted_sides[0] + sorted_sides[1]
 
-circle = Circle(-3)
-print(circle.area())  
-print(circle.length())
+triangle = Triangle(5, 9, 13)
+print(triangle.area())
